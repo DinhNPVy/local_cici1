@@ -34,7 +34,7 @@
                                         <th class="product-price">PRICE</th>
                                         <th class="quantity">QUANTITY</th>
                                         <th class="product-subtotal">TOTAL</th>
-                                        <th class="">ACTION</th>
+                                        <th class=""></th>
 
                                     </tr>
                                 </thead>

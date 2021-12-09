@@ -38,6 +38,9 @@ class Home extends MY_Controller
         $message = $this->session->flashdata('message');
         $this->data['message'] = $message;
 
+        # Tải bộ thư viện ngôn ngữ tiếng việt.
+        $this->load->helper('language');
+        $this->lang->load('vi', 'vietnamese');
 
         $this->data['temp'] = 'site/home/index';
         $this->load->view('site/layout', $this->data);

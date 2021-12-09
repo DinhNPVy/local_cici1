@@ -8,6 +8,9 @@ class MY_Controller extends CI_Controller
         // ke thua tu CI_Controller
         parent::__construct();
 
+        # Tải bộ thư viện ngôn ngữ tiếng việt.
+        $this->load->helper('language');
+        $this->lang->load('vi', 'vietnamese');
         $controller = $this->uri->segment(1);
 
         switch ($controller) {
@@ -21,6 +24,7 @@ class MY_Controller extends CI_Controller
             default: {
                     // xu ly du lieu o trang ngoai
                     // lay danh sach danh muc san pham
+
                     $this->load->model('catalog_model');
                     $input = array();
                     $input['where'] = array('parent_id' => 0);

@@ -56,7 +56,32 @@ class Transaction extends MY_Controller
         $this->data['temp'] = 'admin/transaction/index';
         $this->load->view('admin/main', $this->data);
     }
+    function result()
+    {
 
+        $this->load->model('transaction_model');
+        // id cu agiao dich
+        $transaction_id = $this->input->post('transaction_id');
+
+        $order = $this->transaction_model->get_info($transaction_id);
+        if (!$order) {
+            redirect();
+        }
+
+
+        $status = $this->result($transaction_id, $order->amount);
+        if ($status == true) {
+            // cap nhat lai trang thai don hang ma da thanh toan
+            $data = array();
+            $data['status'] = 1;
+            $this->transaction_model->update($transaction_id, $data);
+        } elseif ($status == false) {
+            // cap nhat lai trang thai don hang ma khong thanh toan
+            $data = array();
+            $data['status'] = 2;
+            $this->transaction_model->update($transaction_id, $data);
+        }
+    }
     // ham xoa
     function delete()
     {

@@ -62,6 +62,8 @@
                             <div class="blog-info">
                                 <h3><a href="<?php echo $row->link ?>" title=""><?php echo $row->title ?></a></h3>
                                 <p class="blog-description"><?php echo $row->content ?></p>
+                                <a href="<?php echo base_url('news/count_view/' . $row->id) ?>" class="view1"><i class="fa fa-eye" aria-hidden="true"></i></a>
+
                                 <a href="<?php echo $row->link ?>" class="readmore">Continue Reading</a>
                             </div>
                         </div>

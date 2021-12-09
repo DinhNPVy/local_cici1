@@ -94,7 +94,7 @@
                                             if ($row->status == 0) {
                                             ?>
 
-                                                <a href="<?php echo admin_url('order/result') ?>">Pending</a>
+                                                <a href="<?php echo admin_url('transaction/result/' . $row->id) ?>">Pending</a>
                                             <?php
                                             } else if ($row->status == 1) {
                                             ?>
@@ -113,7 +113,7 @@
                                         <span class="text-xs font-weight-bold"><?php echo get_date($row->created) ?></span>
                                     </td>
                                     <td class="align-middle">
-                                        <a href="<?php echo admin_url('transaction/view/' . $row->id) ?>" class="text-secondary font-weight-bold text-xs" title="View transacction details">
+                                        <a href="<?php echo base_url('order/index/' . $row->id) ?>" class="text-secondary font-weight-bold text-xs" title="View transacction details">
                                             <img src="<?php echo public_url('admin/assets') ?>/img/eye-outline.svg" style="height: 18px;">
                                         </a>
                                         <a onclick="return confirm('Are you want to delete?')" href="<?php echo admin_url('transaction/delete/' . $row->id) ?>" class="text-secondary font-weight-bold text-xs" title="Delete">

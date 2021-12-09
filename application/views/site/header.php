@@ -459,9 +459,9 @@
                         </ul>
                     </div>
                     <div class="language dropdown">
-                        <a id="label2" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a href="<?php ?>" id="vietnamese" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class="icon"><i class="ion-ios-world-outline" aria-hidden="true"></i></span>
-                            <span>English</span>
+                            <span>Vietnamese</span>
                             <span class="ion-chevron-down"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="label2">
@@ -517,49 +517,12 @@
                             </p>
                         </a>
 
-                        <div class="dropdown-menu dropdown-cart" aria-labelledby="label2">
-                            <ul>
-                                <li>
-                                    <div class="item-order">
-                                        <div class="item-photo">
-                                            <a href="#"><img src="<?php echo public_url() ?>/site/image/cart1.png" alt="images" class="img-responsive"></a>
-                                        </div>
-                                        <div class="item-content">
-                                            <h3><a href="#" title="">iPad Pro MLMX2CL/A</a></h3>
-                                            <p class="price black">$199.69</p>
-                                            <p class="quantity">x1</p>
-                                        </div>
-                                    </div>
-                                    <div class="btn-delete"><a href="#" title="" class="btndel">x</a></div>
-                                </li>
-                                <li>
-                                    <div class="item-order">
-                                        <div class="item-photo">
-                                            <a href="#"><img src="<?php echo public_url() ?>/site/image/cart1.png" alt="images" class="img-responsive"></a>
-                                        </div>
-                                        <div class="item-content">
-                                            <h3><a href="#" title="">iPad Pro MLMX2CL/A</a></h3>
-                                            <p class="price black">$199.69</p>
-                                            <p class="quantity">x1</p>
-                                        </div>
-                                    </div>
-                                    <div class="btn-delete"><a href="#" title="" class="btndel">x</a></div>
-                                </li>
-                            </ul>
-                            <div class="content-1">
-                                <span class="total">Total: <strong class="price black">$399.00</strong></span>
-                                <span class="quantity"><strong class="number">02</strong> products</span>
-                            </div>
-                            <div class="content-2">
-                                <a href="#" class="addcart">ADD TO CART</a>
-                                <a href="#" class="viewcart">View Cart</a>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="block block-option">
                     <ul>
-                        <li><a href="#"><i class="ion-ios-heart fa-1a" aria-hidden="true"></i>Wishlist</a></li>
+                        <li><a href="<?php echo base_url('wishlist') ?>"><i class="ion-ios-heart fa-1a" aria-hidden="true"> </i>Wishlist</a></li>
                         <li><a href="#"><i class="ion-arrow-swap fa-1a" aria-hidden="true"></i>Compare</a></li>
                     </ul>
                 </div>

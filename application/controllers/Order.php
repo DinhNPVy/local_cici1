@@ -75,17 +75,17 @@ class Order extends MY_Controller
                     'created'        => now(),
 
                 );
-                // them du lieu voa bang order 
-                $this->load->model('order_model');
-                $this->order_model->create($data);
+                // them du lieu voa bang transaction
+                $this->load->model('transaction_model');
+                $this->transaction_model->create($data);
 
-                $order_id = $this->db->insert_id(); // lấy ra id giao dịch vừa thêm vào
+                $transaction_id = $this->db->insert_id(); // lấy ra id giao dịch vừa thêm vào
 
                 // them vao bang order
                 $this->load->model('order_model');
                 foreach ($carts as $row) {
                     $data = array(
-                        'order_id' => $order_id,
+                        'transaction_id' => $transaction_id,
                         'product_id'     => $row['id'],
                         'product_name'     => $row['name'],
                         'image_link'     => $row['image_link'],
@@ -106,7 +106,7 @@ class Order extends MY_Controller
                     $this->load->library('payment/' . $payment . '_payment');
 
                     // chuyen sang cong thanh toan
-                    $this->{$payment . '_payment'}->payment($order_id, $total_amount);
+                    $this->{$payment . '_payment'}->payment($transaction_id, $total_amount);
                 }
             }
         }
@@ -119,27 +119,27 @@ class Order extends MY_Controller
     function result()
     {
 
-        $this->load->model('order_model');
+        $this->load->model('transaction_model');
         // id cu agiao dich
-        $order_id = $this->input->post('order_id');
+        $transaction_id = $this->input->post('transaction_id');
 
-        $order = $this->model->order_model->get_info($order_id);
+        $order = $this->transaction_model->get_info($transaction_id);
         if (!$order) {
             redirect();
         }
 
         // goi toi ham kiem tra giam gia thanh toan tren bao kim
-        $status = $this->result($order_id, $order->amount);
+        $status = $this->result($transaction_id, $order->amount);
         if ($status == true) {
             // cap nhat lai trang thai don hang ma da thanh toan
             $data = array();
             $data['status'] = 1;
-            $this->model->order_model->update($order_id, $data);
+            $this->transaction_model->update($transaction_id, $data);
         } elseif ($status == false) {
             // cap nhat lai trang thai don hang ma khong thanh toan
             $data = array();
             $data['status'] = 2;
-            $this->model->order_model->update($order_id, $data);
+            $this->transaction_model->update($transaction_id, $data);
         }
     }
     function index()

@@ -39,8 +39,6 @@ class Admin extends MY_Controller
 
 
 
-
-
     // kiem tra ten dang nhap 
     function check_username()
     {

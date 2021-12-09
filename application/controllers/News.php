@@ -44,4 +44,22 @@ class News extends MY_Controller
         $this->data['temp'] = 'site/news/index';
         $this->load->view('site/layout', $this->data);
     }
+    function count_view()
+    {
+        // lay id san pham muon xem
+        $id = $this->uri->rsegment(3);
+        $news = $this->news_model->get_info($id);
+        if (!$news) redirect();
+
+
+        // cap nhat lai luot xem cua san pham
+        $data = array();
+        $data['count_view'] = $news->count_view + 1;
+        $this->news_model->update($news->id, $data);
+
+
+        // hien thi ra count_view
+        $this->data['temp'] = 'site/news/blog';
+        $this->load->view('site/layout', $this->data);
+    }
 }

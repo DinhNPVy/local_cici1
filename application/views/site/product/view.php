@@ -234,7 +234,7 @@
   							<div class="button-ver2">
   								<a href="<?php echo base_url('cart/add/' . $product->id) ?>" class="link-ver1 addcart-ver2" title="Add to cart"><span><i class="fa fa-shopping-cart"></i></span>ADD TO CART</a>
   								<a href="#" class="link-ver11 paragraph"><i class="ion-stats-bars fa-4" aria-hidden="true"></i></a>
-  								<a href="#" class="link-ver11 " title="wishlist1"><i class="ion-heart fa-4" aria-hidden="true"></i></a>
+  								<a href="<?php echo base_url('wishlist/add/' . $product->id) ?>" class="link-ver11 " title="wishlist1"><i class="ion-heart fa-4" aria-hidden="true"></i></a>
   								<a href="#" class="link-ver11 wishlist wishform"><i class="ion-android-share-alt fa-4" aria-hidden="true"></i></a>
   							</div>
   						</div>
