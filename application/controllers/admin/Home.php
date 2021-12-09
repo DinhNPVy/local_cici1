@@ -44,13 +44,28 @@ class Home extends MY_Controller
         $this->data['total_user']        = $this->user_model->get_total();
         $this->data['total_contact']     = $this->contact_model->get_total();
 
+        //kiem ra co thuc hien lọc kh 
+        $input = array();
+        $id = $this->input->get('id');
+        $id = intval($id);
+        $input['where'] = array();
+        if ($id > 0) {
+            $input['where']['id'] = $id;
+        }
+
+        // lay ra danh sách sản phẩm
+        $list = $this->transaction_model->get_list($input);
+        $this->data['list'] = $list;
+
         $this->lang->load('vi', 'vietnamese');
         $input = array();
         $input['limit'] = array(6, 0);
-
         $input['order'] = array('buyed', 'DESC');
         $product_buy = $this->product_model->get_list($input);
         $this->data['product_buy'] = $product_buy;
+
+
+
 
 
         $this->data['temp'] = 'admin/home/index';
