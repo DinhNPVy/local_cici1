@@ -37,6 +37,28 @@
         text-decoration: none;
     }
 </style>
+<?php
+$ct = new transaction();
+
+if (isset($_GET['deliveredid'])) {
+    $id = $_GET['deliveredid'];
+    @$product_id = $_GET['productId'];
+    @$quantity = $_GET['quantity'];
+    $time = $_GET['time'];
+    $price = $_GET->amount;
+    $shifted = $ct->shifted($id, $product_id, $quantity, $time, $price);
+}
+
+if (isset($_GET['delid'])) {
+    $id = $_GET['delid'];
+
+    $time = $_GET['time'];
+    $price = $_GET->amount;
+    $del_shifted = $ct->delShifted($id, $time, $price);
+}
+
+?>
+
 <div class="row">
     <div class="col-12">
         <?php $this->load->view('admin/message', $this->data) ?>
@@ -89,26 +111,26 @@
                                         <span class="text-xs font-weight-bold"><?php echo $row->payment ?></span>
                                     </td>
                                     <td>
-                                        <span class="text-xs font-weight-bold">
-                                            <?php
-                                            if ($row->status == 0) {
-                                            ?>
+                                        <?php
+                                        if ($row->status == 0) {
+                                        ?>
 
-                                                <a href="<?php echo admin_url('transaction/result/' . $row->id) ?>">Pending</a>
-                                            <?php
-                                            } else if ($row->status == 1) {
-                                            ?>
-                                            <?php
-                                                echo 'Delivering';
-                                            } else if ($row->status == 2) {
+                                            <a href="?deliveredid=<?php echo $row->transaction_id ?>&price=<?php echo $row->amount . '' ?>&time=<?php echo get_date($row->created)?> ">Pending</a>
+                                        <?php
+                                        } else if ($row->status == 1) {
+                                        ?>
+                                        <?php
+                                            echo 'Delivering';
+                                        } else if ($row->status == 2) {
 
-                                            ?>
-                                                <a href="?delid=<?php echo $row->id ?>&price=<?php echo $row->amount . '' ?>&time=<?php echo $row->created ?> ">Delete</a>
-                                            <?php
-                                            }
-                                            ?>
-                                        </span>
+                                        ?>
+                                            <a href="?delid=<?php echo $row->transaction_id ?>&price=<?php echo $row->amount . '' ?>&time=<?php echo get_date($row->created)?> ">Delete</a>
+                                        <?php
+                                        }
+                                        ?>
                                     </td>
+
+
                                     <td>
                                         <span class="text-xs font-weight-bold"><?php echo get_date($row->created) ?></span>
                                     </td>

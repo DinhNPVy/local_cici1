@@ -1,3 +1,18 @@
+<?php
+
+
+$ct = new order();
+
+if (isset($_GET['confirmid'])) {
+    $id = $_GET['confirmid'];
+
+    $time = $_GET['time'];
+    $price = $_GET['price'];
+    $shifted_confirmid = $ct->ShiftedConfirmid($id, $time, $price);
+}
+
+?>
+
 <section class="checkout-page">
     <div class="container">
         <div class="heading-sub">
@@ -17,6 +32,7 @@
 
                     <table class="table shop_table">
                         <thead>
+
                             <tr>
                                 <th class="product-thumbnail">IMAGE</th>
                                 <th class="product-name">PRODUCT NAME</th>
@@ -51,7 +67,7 @@
                                             <input name="qty_<?php echo $row->id ?>" value="<?php echo $row->qty; ?>" min="1">
                                         </div>
                                     </td>
-                                    <td class="product-price product-subtotal">
+                                    <td>
                                         <?php
                                         if ($row->status == '0') {
                                             echo 'Pending';
@@ -65,14 +81,37 @@
                                         }
                                         ?>
                                     </td>
-                                    <td class="">
+                                    <?php
+                                    if ($row->status == 0) {
+                                    ?>
+                                        <td><?php echo 'N/A'  ?></td>
+                                    <?php
 
-                                        <a onclick="return confirm('Are you want to delete?')" href="<?php echo base_url('order/delete/' . $row->id) ?>" class="avatar avatar-lg rounded-circle" title="Delete <?php echo $row->product_name ?>">
-                                            <img src="<?php echo public_url('admin/assets') ?>/img/trash-outline.svg" style="height: 24px; width:5000px; margin-top:70px; margin-left: -156px;" alt="Image placeholder">
-                                        </a>
+                                    } elseif ($row->status == 1) {
+                                    ?>
+                                        <td> <a href="?confirmid=<?php echo $transaction_id ?>&price=<?php echo number_format($row->amount) ?>&time=<?php echo get_date($row->created) ?> ">Confirmed</a></td>
+                                    <?php
+                                    } else {
+
+                                    ?>
+                                        <td>
+                                            <?php echo 'Received' ?>
+                                        </td>
+
+                                    <?php
+                                    }
+                                    ?>
+                                </tr>
 
 
-                                    </td>
+                                <td class="">
+
+                                    <a onclick="return confirm('Are you want to delete?')" href="<?php echo base_url('order/delete/' . $row->id) ?>" class="avatar avatar-lg rounded-circle" title="Delete <?php echo $row->product_name ?>">
+                                        <img src="<?php echo public_url('admin/assets') ?>/img/trash-outline.svg" style="height: 24px; width:5000px; margin-top:70px; margin-left: -156px;" alt="Image placeholder">
+                                    </a>
+
+
+                                </td>
 
 
 

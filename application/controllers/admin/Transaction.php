@@ -56,32 +56,67 @@ class Transaction extends MY_Controller
         $this->data['temp'] = 'admin/transaction/index';
         $this->load->view('admin/main', $this->data);
     }
-    function result()
-    {
-
-        $this->load->model('transaction_model');
-        // id cu agiao dich
-        $transaction_id = $this->input->post('transaction_id');
-
-        $order = $this->transaction_model->get_info($transaction_id);
-        if (!$order) {
-            redirect();
-        }
-
-
-        $status = $this->result($transaction_id, $order->amount);
-        if ($status == true) {
-            // cap nhat lai trang thai don hang ma da thanh toan
-            $data = array();
-            $data['status'] = 1;
-            $this->transaction_model->update($transaction_id, $data);
-        } elseif ($status == false) {
-            // cap nhat lai trang thai don hang ma khong thanh toan
-            $data = array();
-            $data['status'] = 2;
-            $this->transaction_model->update($transaction_id, $data);
-        }
-    }
+      // transaction 
+      public function shifted($id, $proid, $qty, $time, $price)
+      {
+          $id = mysqli_real_escape_string($this->db->link, $id);
+          $time = mysqli_real_escape_string($this->db->link, $time);
+          $price = mysqli_real_escape_string($this->db->link, $price);
+  
+          $query_select = "SELECT * FROM tbl_product WHERE productID='$proid'";
+          $get_select = $this->db->select($query_select);
+  
+          if ($get_select) {
+              while ($result = $get_select->fetch_assoc()) {
+                  $soluong_new = $result['product_remain'] - $qty;
+                  $qty_soldout = $result['product_soldout'] + $qty;
+  
+                  $query_soluong = "UPDATE tbl_product SET
+                      product_remain = '$soluong_new',product_soldout = '$qty_soldout' WHERE productID = '$proid'";
+                  $result = $this->db->update($query_soluong);
+              }
+          }
+  
+  
+          $query = "UPDATE tbl_order SET
+      status = '1'
+  
+      WHERE id = '$id' AND date_order = '$time' AND price = '$price'";
+          $result = $this->db->update($query);
+  
+          if ($result) {
+  
+              $mes = "<span class='Success'>Update Order Successfully</span>";
+              return $mes;
+          } else {
+  
+              $mes = "<span class='error'>Update Order Not Successfully</span>";
+              return $mes;
+          }
+      }
+  
+      // xoa cua xac nhan
+      public function delShifted($id, $time, $price)
+      {
+          $id = mysqli_real_escape_string($this->db->link, $id);
+          $time = mysqli_real_escape_string($this->db->link, $time);
+          $price = mysqli_real_escape_string($this->db->link, $price);
+          $query = "DELETE FROM tbl_order
+            WHERE id = '$id' AND date_order = '$time' AND price = '$price' ";
+  
+          $result = $this->db->update($query);
+          if ($result) {
+              $msg = "<span class='success'> DELETE Order Succesfully</span> ";
+              return $msg;
+          } else {
+              $msg = "<span class='erorr'> DELETE Order NOT Succesfully</span> ";
+              return $msg;
+          }
+      }
+  
+  
+  
+  
     // ham xoa
     function delete()
     {

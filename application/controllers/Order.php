@@ -4,6 +4,7 @@ class Order extends MY_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->library('session');
     }
     // lay thong tin cua khach hang
     function checkout()
@@ -92,6 +93,7 @@ class Order extends MY_Controller
                         'qty'            => $row['qty'],
                         'amount'         => $row['subtotal'],
                         'status'         => '0',
+                        'created'        => now(),
                     );
                     $this->order_model->create($data);
                 }
@@ -155,6 +157,22 @@ class Order extends MY_Controller
         $this->data['temp'] = 'site/order/index';
         $this->load->view('site/layout', $this->data);
     }
+    // order
+    function ShiftedConfirmid($id, $time, $price)
+    {
+        $id = mysqli_real_escape_string($this->db->link, $id);
+        $time = mysqli_real_escape_string($this->db->link, $time);
+        $price = mysqli_real_escape_string($this->db->link, $price);
+        $query = "UPDATE order SET
+            status = '2'
+
+          WHERE transaction_id = '$id' AND created = '$time' AND amount = '$price' ";
+
+        $result = $this->db->update($query);
+    }
+
+  
+
     // ham xoa
     function delete()
     {
