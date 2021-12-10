@@ -5083,7 +5083,7 @@ body {
     .product-list .product-item-info h3 a {
       font: 14px/20px "Poppins", sans-serif; }
     .product-list .product-item-info p {
-      display: none; }
+    }
     .product-list .product-item-info .product-item-star {
       margin-top: 10px; }
     .product-list .product-item-info .addcart-ver2 {

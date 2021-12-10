@@ -16,7 +16,7 @@ class Home extends MY_Controller
         $where = array(
             'created <=' => $time['end'],
             'created >=' => $time['start'],
-            'status'     => 1
+            'status'     => 2
         );
         $amount_to_day = $this->transaction_model->get_sum('amount', $where);
         $this->data['amount_to_day'] = $amount_to_day;
@@ -27,13 +27,13 @@ class Home extends MY_Controller
         $where = array(
             'created <=' => $time['end'],
             'created >=' => $time['start'],
-            'status'     => 1
+            'status'     => 2
         );
         $tongtien_thang = $this->transaction_model->get_sum('amount', $where);
         $this->data['tongtien_thang'] = $tongtien_thang;
 
         // lay tong doanh thu
-        $where = array('status' => 1);
+        $where = array('status' => 2);
         $amount_total = $this->transaction_model->get_sum('amount', $where);
         $this->data[$amount_total] = $amount_total;
 

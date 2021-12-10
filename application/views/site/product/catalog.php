@@ -230,7 +230,7 @@ $price_to_select = isset($price_to) ? intval($price_to) : 0;
                         <?php foreach ($list as $row) : ?>
                             <div class="product-list-item">
                                 <div class="product-item-img">
-                                    <a href="<?php echo base_url('product/view/' . $row->id) ?>"><img src="<?php echo base_url('upload/product/' . $row->image_link) ?>" alt="<?php echo $row->name ?>" alt="images" class="img-responsive"></a>
+                                    <a href="<?php echo base_url('product/view/' . $row->id) ?>"><img src="<?php echo base_url('upload/product/' . $row->image_link) ?>" alt="<?php echo $row->name ?>" alt="images" class="img-responsive" style="height:250px"></a>
                                     <div class="label label-2 red label-top-20">Hot</div>
                                 </div>
                                 <div class="product-item-info">
@@ -242,19 +242,21 @@ $price_to_select = isset($price_to) ? intval($price_to) : 0;
                                         <a href="#"><i class="fa fa-star fa-1" aria-hidden="true" style="color: gold;"></i></a>
                                         <a href="#"><i class="fa fa-star fa-1" aria-hidden="true"></i></a>
                                         <span class="number">(12)</span>
+                                        <i class="fa fa-eye" aria-hidden="true"></i><span class="price black">
+                                            &ensp; <?php echo $row->view ?></span>
                                     </div>
                                     <div class="prod-price">
                                         <?php if ($row->discount > 0) : ?>
                                             <?php $price_new = $row->price - $row->discount; ?>
-                                            <p class="price old"><?php echo number_format($row->price) ?> VNĐ</p>
-                                            <p class="price black" style="color:crimson;"><?php echo number_format($price_new) ?> VNĐ </p>
+                                            <span class="price old"><?php echo number_format($row->price) ?> VNĐ</span>
+                                            <span class="price black" style="color:crimson;"><?php echo number_format($price_new) ?> VNĐ </span>
 
                                         <?php else : ?>
-                                            <p class="price black" style="color:crimson;">
+                                            <span class="price black" style="color:crimson;">
                                                 <?php echo number_format($row->price) ?> VNĐ
-                                            </p>
+                                            </span>
                                         <?php endif; ?>
-                                        <p class="price black">View: <?php echo $row->view ?></p>
+                                  
                                     </div>
                                     <div class="button-ver2">
                                         <a href="<?php echo base_url('cart/add/' . $row->id) ?>" class="addcart-ver2" title="Add to cart"><span><i class="fa fa-shopping-cart"></i></span>ADD TO CART</a>

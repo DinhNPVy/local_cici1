@@ -89,6 +89,9 @@ class Product extends MY_Controller
     function view()
     {
         // lay id san pham muon xem
+
+
+
         $id = $this->uri->rsegment(3);
         $product = $this->product_model->get_info($id);
         if (!$product) redirect();
@@ -107,7 +110,7 @@ class Product extends MY_Controller
         $this->product_model->update($product->id, $data);
 
         // lay thong tin danh muc san pham
-        $catalog = $this->catalog_model->get_info($product->catalog_id);
+        $catalog = $this->catalog_model->get_info($id);
         $this->data['catalog'] = $catalog;
 
         // hien thi ra view
@@ -156,7 +159,7 @@ class Product extends MY_Controller
         exit();
     }
 
-    
+
 
     function search()
     {

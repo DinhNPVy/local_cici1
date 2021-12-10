@@ -34,7 +34,7 @@
 </style>
 
 <?php if (isset($message) && $message) : ?>
-    <div class="nNote nInformation hideit" style="margin: 22px 155px;">
+    <div class="nNote nInformation hideit" style="margin: 22px 520px;">
         <p><img src="<?php echo public_url('admin/assets') ?>/img/megaphone-outline.svg" style="height: 18px; color:#deeefa;" alt="" /><strong> INFORMATION: </strong><?php echo $message ?></p>
     </div>
     <script src="<?php echo public_url('admin/assets') ?>/js/core/jquery-1.11.1.min.js">
