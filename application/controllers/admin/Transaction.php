@@ -8,6 +8,7 @@ class Transaction extends MY_Controller
 
         //load ra file model
         $this->load->model('transaction_model');
+        $this->load->library('session');
     }
 
     // hien thi danh sach giao dich trong website
@@ -63,7 +64,7 @@ class Transaction extends MY_Controller
           $time = mysqli_real_escape_string($this->db->link, $time);
           $price = mysqli_real_escape_string($this->db->link, $price);
   
-          $query_select = "SELECT * FROM tbl_product WHERE productID='$proid'";
+          $query_select = "SELECT * FROM product WHERE id ='$proid'";
           $get_select = $this->db->select($query_select);
   
           if ($get_select) {
@@ -78,10 +79,10 @@ class Transaction extends MY_Controller
           }
   
   
-          $query = "UPDATE tbl_order SET
-      status = '1'
+          $query = "UPDATE transaction SET
+                 status = '1'
   
-      WHERE id = '$id' AND date_order = '$time' AND price = '$price'";
+          WHERE transaction_id = '$id' AND created = '$time' AND amount = '$price'";
           $result = $this->db->update($query);
   
           if ($result) {
@@ -101,8 +102,8 @@ class Transaction extends MY_Controller
           $id = mysqli_real_escape_string($this->db->link, $id);
           $time = mysqli_real_escape_string($this->db->link, $time);
           $price = mysqli_real_escape_string($this->db->link, $price);
-          $query = "DELETE FROM tbl_order
-            WHERE id = '$id' AND date_order = '$time' AND price = '$price' ";
+          $query = "DELETE FROM transaction
+            WHERE id = '$id' AND created = '$time' AND amount = '$price' ";
   
           $result = $this->db->update($query);
           if ($result) {
