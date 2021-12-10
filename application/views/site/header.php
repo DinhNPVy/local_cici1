@@ -645,7 +645,7 @@
 
                         </li>
                         <li class=" menu-demo-page menu-item-has-child dropdown">
-                            <a href="<?php echo site_url('order/index') ?>" title="Sellerdemo">ordered</a>
+                            <a href="<?php echo site_url('transaction/index') ?>" title="Sellerdemo">ordered</a>
 
                         </li>
                         <li class="dropdown menu-contact-page menu-item-has-child">

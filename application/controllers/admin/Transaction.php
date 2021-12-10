@@ -11,6 +11,8 @@ class Transaction extends MY_Controller
         $this->load->library('session');
     }
 
+
+
     // hien thi danh sach giao dich trong website
     function index()
     {
@@ -57,61 +59,20 @@ class Transaction extends MY_Controller
         $this->data['temp'] = 'admin/transaction/index';
         $this->load->view('admin/main', $this->data);
     }
-      // transaction 
-      function shifted($id_order, $time_order, $price_order)
-      {
-        
-          $this->load->model('transaction_model');
-          $this->load->model('order_model');
-    
-          $id = $this->input->post('id');
-          $id_order = $this->transaction_model->get_info($id);
-         
-          $time = $this->input->post('created');
-          $time_order = $this->transaction_model->get_info($time);
-          $price = $this->input->post('amount');
-          $price_order = $this->transaction_model->get_info($price);
-  
-          $query = "UPDATE (transaction and order) SET
-                 status = '1'
-  
-          WHERE id = '$id_order' AND created = '$time_order' AND amount = '$price_order'";
-         $this->order_model->update($query);
-         $this->transaction_model->update($query);
-  
-        //   if ($result) {
-  
-        //       $mes = "<span class='Success'>Update Order Successfully</span>";
-        //       return $mes;
-        //   } else {
-  
-        //       $mes = "<span class='error'>Update Order Not Successfully</span>";
-        //       return $mes;
-        //   }
-      }
-  
-      // xoa cua xac nhan
-      public function delShifted($id, $time, $price)
-      {
-          $id = mysqli_real_escape_string($this->db->link, $id);
-          $time = mysqli_real_escape_string($this->db->link, $time);
-          $price = mysqli_real_escape_string($this->db->link, $price);
-          $query = "DELETE FROM transaction
-            WHERE id = '$id' AND created = '$time' AND amount = '$price' ";
-  
-          $result = $this->db->update($query);
-          if ($result) {
-              $msg = "<span class='success'> DELETE Order Succesfully</span> ";
-              return $msg;
-          } else {
-              $msg = "<span class='erorr'> DELETE Order NOT Succesfully</span> ";
-              return $msg;
-          }
-      }
-  
-  
-  
-  
+    // transaction 
+    function shifted()
+    {
+        $id = $this->uri->rsegment(3);
+        $transaction = $this->transaction_model->get_info($id);
+        if (!$transaction) redirect();
+        $data = array();
+        $data['status'] = $transaction->status + 1;
+        $this->transaction_model->update($transaction->id, $data);
+
+        redirect('admin/transaction');
+    }
+
+
     // ham xoa
     function delete()
     {

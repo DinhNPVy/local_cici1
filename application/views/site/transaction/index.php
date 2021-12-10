@@ -1,4 +1,7 @@
+<?php
 
+
+?>
 
 <section class="checkout-page">
     <div class="container">
@@ -32,16 +35,14 @@
                         </thead>
                         <tbody>
 
-                            <?php foreach ($ordered as $row) : ?>
+                            <?php foreach ($transactioned as $row) : ?>
 
                                 <tr class="cart_item">
 
 
                                     <td class="product-thumbnail">
 
-
-
-                                        <a href="<?php echo base_url('product/view/' . $row->id) ?>"><img src="<?php echo base_url('upload/product/' . $row->image_link) ?>" alt="images" class="img-responsive"></a>
+                                        <a href="<?php echo base_url('product/view/' . $row->id) ?>"><img src="<?php echo base_url('upload/product/' . $row->image_link) ?>" alt="images" class="img-responsive" style="height: 80px;"></a>
                                     </td>
                                     <td class="product-name">
                                         <a href="<?php echo $row->product_name; ?>"><?php echo $row->product_name; ?></a>
@@ -54,7 +55,7 @@
                                             <input name="qty_<?php echo $row->id ?>" value="<?php echo $row->qty; ?>" min="1">
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="product-name">
                                         <?php
                                         if ($row->status == '0') {
                                             echo 'Pending';
@@ -71,17 +72,17 @@
                                     <?php
                                     if ($row->status == 0) {
                                     ?>
-                                        <td><?php echo 'N/A'  ?></td>
+                                        <td class="product-name"><?php echo 'N/A'  ?></td>
                                     <?php
 
                                     } elseif ($row->status == 1) {
                                     ?>
-                                        <td> <a href="?confirmid=<?php echo $transaction_id ?>&price=<?php echo number_format($row->amount) ?>&time=<?php echo get_date($row->created) ?> ">Confirmed</a></td>
+                                        <td class="product-name"> <a href="<?php echo base_url('transaction/confirmshifted/' . $row->id) ?> ">Confirmed</a></td>
                                     <?php
                                     } else {
 
                                     ?>
-                                        <td>
+                                        <td class="product-name">
                                             <?php echo 'Received' ?>
                                         </td>
 
@@ -91,18 +92,6 @@
                                 </tr>
 
 
-                                <td class="">
-
-                                    <a onclick="return confirm('Are you want to delete?')" href="<?php echo base_url('order/delete/' . $row->id) ?>" class="avatar avatar-lg rounded-circle" title="Delete <?php echo $row->product_name ?>">
-                                        <img src="<?php echo public_url('admin/assets') ?>/img/trash-outline.svg" style="height: 24px; width:5000px; margin-top:70px; margin-left: -156px;" alt="Image placeholder">
-                                    </a>
-
-
-                                </td>
-
-
-
-                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>

@@ -100,7 +100,7 @@
                                     <li><span class="text">Total:</span><span class="cart-number big-total-number"><?php echo number_format($total_amount + 50000) ?> VNĐ</span></li>
                                 </ul>
                                 <div class="process">
-                                    <a href="<?php echo site_url('order/checkout') ?>" type="submit" class="btn-checkout">PROCEED TO CHECKOUT</a>
+                                    <a href="<?php echo site_url('transaction/checkout') ?>" type="submit" class="btn-checkout">PROCEED TO CHECKOUT</a>
                                 </div>
                             </div>
                         </div>

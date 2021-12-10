@@ -21,13 +21,10 @@
             </li>
         </ul>
         <div class="orders">
-            <form action="<?php echo site_url('order/checkout') ?>" method="post">
+            <form action="<?php echo site_url('transaction/checkout') ?>" method="post">
                 <div class="row">
                     <div class="col-md-7">
-                        <div class="login-required">
-                            <p>Returning Custumer? CLICK <a href="#" title="" class="login">HERE</a> TO LOGIN</p>
-                            <p>Have a coupon? CLICK <a href="#" title="" class="coupon-code">HERE</a> TO ENTER YOUR CODE</p>
-                        </div>
+
                         <div class="billing-details">
                             <div class="billing-details-heading">
                                 <h2 class="billing-title">

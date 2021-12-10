@@ -65,10 +65,11 @@
 
 
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Orderer's Name</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Money</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Payment</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Created</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2"></th>
 
                             </tr>
@@ -87,6 +88,7 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td class="product-name"><?php echo $row->user_name  ?></td>
                                     <td>
                                         <p class="text-sm font-weight-bold mb-0"><?php echo number_format($row->amount) ?> VNĐ</p>
                                     </td>
@@ -94,11 +96,14 @@
                                         <span class="text-xs font-weight-bold"><?php echo $row->payment ?></span>
                                     </td>
                                     <td>
+                                        <span class="text-xs font-weight-bold"><?php echo get_date($row->created) ?></span>
+                                    </td>
+                                    <td>
                                         <?php
                                         if ($row->status == 0) {
                                         ?>
 
-                                            <a href="<?php echo admin_url('transaction/shifted') ?>">Pending</a>
+                                            <a href="<?php echo admin_url('transaction/shifted/' . $row->id) ?>">Pending</a>
                                         <?php
                                         } else if ($row->status == 1) {
                                         ?>
@@ -107,23 +112,19 @@
                                         } else if ($row->status == 2) {
 
                                         ?>
-                                            <a href="?delid=<?php echo $row->id ?>&price=<?php echo $row->amount . '' ?>&time=<?php echo get_date($row->created)?> ">Delete</a>
+                                            <a href="<?php echo  admin_url('transaction/delete/' . $row->id)  ?>">Delete</a>
                                         <?php
                                         }
                                         ?>
                                     </td>
 
 
-                                    <td>
-                                        <span class="text-xs font-weight-bold"><?php echo get_date($row->created) ?></span>
-                                    </td>
+
                                     <td class="align-middle">
-                                        <a href="<?php echo base_url('order/index/' . $row->id) ?>" class="text-secondary font-weight-bold text-xs" title="View transacction details">
+                                        <a href="<?php echo base_url('transaction/index/' . $row->id) ?>" class="text-secondary font-weight-bold text-xs" title="View transacction details">
                                             <img src="<?php echo public_url('admin/assets') ?>/img/eye-outline.svg" style="height: 18px;">
                                         </a>
-                                        <a onclick="return confirm('Are you want to delete?')" href="<?php echo admin_url('transaction/delete/' . $row->id) ?>" class="text-secondary font-weight-bold text-xs" title="Delete">
-                                            <img src="<?php echo public_url('admin/assets') ?>/img/trash-outline.svg" style="height: 18px;">
-                                        </a>
+
                                     </td>
                                 </tr>
 
