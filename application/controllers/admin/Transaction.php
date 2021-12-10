@@ -58,42 +58,36 @@ class Transaction extends MY_Controller
         $this->load->view('admin/main', $this->data);
     }
       // transaction 
-      public function shifted($id, $proid, $qty, $time, $price)
+      function shifted($id_order, $time_order, $price_order)
       {
-          $id = mysqli_real_escape_string($this->db->link, $id);
-          $time = mysqli_real_escape_string($this->db->link, $time);
-          $price = mysqli_real_escape_string($this->db->link, $price);
+        
+          $this->load->model('transaction_model');
+          $this->load->model('order_model');
+    
+          $id = $this->input->post('id');
+          $id_order = $this->transaction_model->get_info($id);
+         
+          $time = $this->input->post('created');
+          $time_order = $this->transaction_model->get_info($time);
+          $price = $this->input->post('amount');
+          $price_order = $this->transaction_model->get_info($price);
   
-          $query_select = "SELECT * FROM product WHERE id ='$proid'";
-          $get_select = $this->db->select($query_select);
-  
-          if ($get_select) {
-              while ($result = $get_select->fetch_assoc()) {
-                  $soluong_new = $result['product_remain'] - $qty;
-                  $qty_soldout = $result['product_soldout'] + $qty;
-  
-                  $query_soluong = "UPDATE tbl_product SET
-                      product_remain = '$soluong_new',product_soldout = '$qty_soldout' WHERE productID = '$proid'";
-                  $result = $this->db->update($query_soluong);
-              }
-          }
-  
-  
-          $query = "UPDATE transaction SET
+          $query = "UPDATE (transaction and order) SET
                  status = '1'
   
-          WHERE transaction_id = '$id' AND created = '$time' AND amount = '$price'";
-          $result = $this->db->update($query);
+          WHERE id = '$id_order' AND created = '$time_order' AND amount = '$price_order'";
+         $this->order_model->update($query);
+         $this->transaction_model->update($query);
   
-          if ($result) {
+        //   if ($result) {
   
-              $mes = "<span class='Success'>Update Order Successfully</span>";
-              return $mes;
-          } else {
+        //       $mes = "<span class='Success'>Update Order Successfully</span>";
+        //       return $mes;
+        //   } else {
   
-              $mes = "<span class='error'>Update Order Not Successfully</span>";
-              return $mes;
-          }
+        //       $mes = "<span class='error'>Update Order Not Successfully</span>";
+        //       return $mes;
+        //   }
       }
   
       // xoa cua xac nhan

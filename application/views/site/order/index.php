@@ -1,17 +1,4 @@
-<?php
 
-
-$ct = new order();
-
-if (isset($_GET['confirmid'])) {
-    $id = $_GET['confirmid'];
-
-    $time = $_GET['time'];
-    $price = $_GET['price'];
-    $shifted_confirmid = $ct->ShiftedConfirmid($id, $time, $price);
-}
-
-?>
 
 <section class="checkout-page">
     <div class="container">

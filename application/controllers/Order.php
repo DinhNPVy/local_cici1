@@ -76,17 +76,17 @@ class Order extends MY_Controller
                     'created'        => now(),
 
                 );
-                // them du lieu voa bang transaction
-                $this->load->model('transaction_model');
-                $this->transaction_model->create($data);
+                // them du lieu voa bang order
+                $this->load->model('order_model');
+                $this->order_model->create($data);
 
-                $transaction_id = $this->db->insert_id(); // lấy ra id giao dịch vừa thêm vào
+                $order_id = $this->db->insert_id(); // lấy ra id giao dịch vừa thêm vào
 
                 // them vao bang order
                 $this->load->model('order_model');
                 foreach ($carts as $row) {
                     $data = array(
-                        'transaction_id' => $transaction_id,
+                        'order_id' => $order_id,
                         'product_id'     => $row['id'],
                         'product_name'     => $row['name'],
                         'image_link'     => $row['image_link'],
@@ -108,7 +108,7 @@ class Order extends MY_Controller
                     $this->load->library('payment/' . $payment . '_payment');
 
                     // chuyen sang cong thanh toan
-                    $this->{$payment . '_payment'}->payment($transaction_id, $total_amount);
+                    $this->{$payment . '_payment'}->payment($order_id, $total_amount);
                 }
             }
         }
@@ -121,27 +121,27 @@ class Order extends MY_Controller
     function result()
     {
 
-        $this->load->model('transaction_model');
+        $this->load->model('order_model');
         // id cu agiao dich
-        $transaction_id = $this->input->post('transaction_id');
+        $order_id = $this->input->post('order_id');
 
-        $order = $this->transaction_model->get_info($transaction_id);
+        $order = $this->order_model->get_info($order_id);
         if (!$order) {
             redirect();
         }
 
         // goi toi ham kiem tra giam gia thanh toan tren bao kim
-        $status = $this->result($transaction_id, $order->amount);
+        $status = $this->result($order_id, $order->amount);
         if ($status == true) {
             // cap nhat lai trang thai don hang ma da thanh toan
             $data = array();
             $data['status'] = 1;
-            $this->transaction_model->update($transaction_id, $data);
+            $this->order_model->update($order_id, $data);
         } elseif ($status == false) {
             // cap nhat lai trang thai don hang ma khong thanh toan
             $data = array();
             $data['status'] = 2;
-            $this->transaction_model->update($transaction_id, $data);
+            $this->order_model->update($order_id, $data);
         }
     }
     function index()
@@ -158,15 +158,21 @@ class Order extends MY_Controller
         $this->load->view('site/layout', $this->data);
     }
     // order
-    function ShiftedConfirmid($id, $time, $price)
+    function ShiftedConfirmid($id_order, $time_order, $price_order)
     {
-        $id = mysqli_real_escape_string($this->db->link, $id);
-        $time = mysqli_real_escape_string($this->db->link, $time);
-        $price = mysqli_real_escape_string($this->db->link, $price);
+        $this->load->model('order_model');
+    
+        $id = $this->input->post('transaction_id');
+        $id_order = $this->order_model->get_info($id);
+       
+        $time = $this->input->post('created');
+        $time_order = $this->order_model->get_info($time);
+        $price = $this->input->post('amount');
+        $price_order = $this->order_model->get_info($price);
         $query = "UPDATE order SET
             status = '2'
 
-          WHERE transaction_id = '$id' AND created = '$time' AND amount = '$price' ";
+          WHERE transaction_id = '$id_order' AND created = '$time_order' AND amount = '$price_order' ";
 
         $result = $this->db->update($query);
     }

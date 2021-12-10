@@ -38,24 +38,7 @@
     }
 </style>
 <?php
-$ct = new transaction();
 
-if (isset($_GET['deliveredid'])) {
-    $id = $_GET['deliveredid'];
-    @$product_id = $_GET['productId'];
-    @$quantity = $_GET['quantity'];
-    $time = $_GET['time'];
-    $price = $_GET->amount;
-    $shifted = $ct->shifted($id, $product_id, $quantity, $time, $price);
-}
-
-if (isset($_GET['delid'])) {
-    $id = $_GET['delid'];
-
-    $time = $_GET['time'];
-    $price = $_GET->amount;
-    $del_shifted = $ct->delShifted($id, $time, $price);
-}
 
 ?>
 
@@ -115,7 +98,7 @@ if (isset($_GET['delid'])) {
                                         if ($row->status == 0) {
                                         ?>
 
-                                            <a href="?deliveredid=<?php echo $row->transaction_id ?>&price=<?php echo $row->amount . '' ?>&time=<?php echo get_date($row->created)?> ">Pending</a>
+                                            <a href="<?php echo admin_url('transaction/shifted') ?>">Pending</a>
                                         <?php
                                         } else if ($row->status == 1) {
                                         ?>
@@ -124,7 +107,7 @@ if (isset($_GET['delid'])) {
                                         } else if ($row->status == 2) {
 
                                         ?>
-                                            <a href="?delid=<?php echo $row->transaction_id ?>&price=<?php echo $row->amount . '' ?>&time=<?php echo get_date($row->created)?> ">Delete</a>
+                                            <a href="?delid=<?php echo $row->id ?>&price=<?php echo $row->amount . '' ?>&time=<?php echo get_date($row->created)?> ">Delete</a>
                                         <?php
                                         }
                                         ?>
